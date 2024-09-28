@@ -1,0 +1,45 @@
+<!-- templates/search/search.html -->
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Поиск товаров</title>
+  </head>
+  <body>
+    <h1>Поиск товаров</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Искать</button>
+    </form>
+
+    {% if page_obj %}
+    <h2>Результаты поиска:</h2>
+    <ul>
+      {% for product in page_obj %}
+      <li>{{ product.name }}: {{ product.description }}</li>
+      {% empty %}
+      <li>Товары не найдены.</li>
+      {% endfor %}
+    </ul>
+
+    <!-- Пагинация -->
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+        {% endif %}
+
+        <span class="current">
+          Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!-- templates/orders/order_summary.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Резюме заказа</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <h1>Ваш заказ</h1>
+    <ul>
+      <li>Имя: {{ data.first_name }}</li>
+      <li>Фамилия: {{ data.last_name }}</li>
+      <li>E-mail: {{ data.email }}</li>
+      <li>Контактный телефон: {{ data.phone }}</li>
+      <li>Адрес: {{ data.address }}</li>
+      <li>Количество месяцев доставки: {{ data.delivery_months }}</li>
+      <li>Объём баллона воды: {{ data.bottle_volume }}</li>
+    </ul>
+    <a href="{% url 'order_water' %}">Сделать новый заказ</a>
+  </body>
+</html>
